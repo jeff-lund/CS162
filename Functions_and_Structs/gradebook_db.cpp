@@ -25,7 +25,8 @@ void menu_print(void);
 void grade_program(student&);
 void grade_midterm(student&);
 void grade_final(student&);
-int find_student(student*, int, int);
+int find_student_id(student*, int, int);
+int find_student_name(student*, int, char*);
 void student_print(student&);
 void add_student(student&);
 void view_students(student*, int);
@@ -34,7 +35,8 @@ void adjust_grade(student*, int);
 int load(student*, char*);
 void save(student*, int, char*);
 void class_average(student*, int);
-void compute_grades(student*, int, int*);
+void compute_grades(student*, int);
+void wait(void);
 
 int main(void) {
 
@@ -43,7 +45,6 @@ int main(void) {
   char choice;
   int menu_choice;
   int num_students = 0;
-  int grades[SIZE];
   bool repeat = true;
   bool success = false;
 
@@ -103,7 +104,7 @@ int main(void) {
         case 5: view_students(students, num_students);
                 break;
         // final grades
-        case 6: compute_grades(students, num_students, grades);
+        case 6: compute_grades(students, num_students);
                 break;
         // quit
         case 7: repeat = false;
@@ -238,12 +239,58 @@ void grade_final(student& s)
   return;
 }
 
-int find_student(student students[], int length, int id)
+int find_student(student s[], int length)
+{
+    int index = -1;
+    int id;
+    char choice;
+    char name[SIZE];
+
+    cout << "Search by (i)d or (n)ame: ";
+    cin >> choice;
+    cin.ignore();
+
+    if(tolower(choice) == 'i')
+    {
+      cout << "Enter id number: ";
+      cin >> id;
+      cin.ignore();
+      index = find_student_id(s, length, id);
+    }
+    else if(tolower(choice) == 'n')
+    {
+      cout << "Enter student name: ";
+      cin.get(name, 100, '\n');
+      cin.ignore();
+      index = find_student_name(s, length, name);
+    }
+    else
+    {
+      cout << "Invalid selection" << endl;
+    }
+
+    return index;
+}
+
+int find_student_id(student s[], int length, int id)
 {
   int index = -1;
   for(int i = 0; i < length; ++i)
   {
-    if(students[i].id == id)
+    if(s[i].id == id)
+    {
+      index = i;
+    }
+  }
+  return index;
+}
+
+int find_student_name(student s[], int length, char name[])
+{
+  int index = -1;
+  for(int i = 0; i < length; ++i)
+  {
+    if(strcmp(name, s[i].name) == 0)
     {
       index = i;
     }
@@ -281,8 +328,6 @@ void add_student(student& s)
 void view_students(student students[], int length)
 {
   char choice;
-  char name[SIZE];
-  int id = -1;
   int index;
 
   cout << "View (i)ndividual student or (a)ll students? ";
@@ -290,27 +335,7 @@ void view_students(student students[], int length)
   cin.ignore();
   if(choice == 'i')
   {
-      cout << "Search by (i)d or (n)ame: ";
-      cin >> choice;
-      cin.ignore();
-      if(tolower(choice) == 'i')
-      {
-        cout << "Enter id number: ";
-        cin >> id;
-        cin.ignore();
-      }
-      else if(tolower(choice) == 'n')
-      {
-        cout << "Enter student name: ";
-        cin.get(name, 100, '\n');
-        cin.ignore();
-        for(int i = 0; i < length; ++i)
-        {
-          if(strcmp(name, students[i].name) == 0)
-            id = students[i].id;
-        }
-      }
-      index = find_student(students, length, id);
+      index = find_student(students, length);
       if(index == -1)
       {
           cout << "Student not found." << endl;
@@ -328,15 +353,16 @@ void view_students(student students[], int length)
       }
   }
 
-  cout << "Press anything to continue" << endl;
-  cin.get();
+  wait();
   return;
 }
 
 // grade  a particular item {midterm, final, program} for all students
+// skips over a student if they already have a grade for the item
 void grade(student students[], int length)
 {
   int choice;
+
   cout << "What would you like to grade: " << endl;
   cout << "(1) Program" << endl;
   cout << "(2) Midterm" << endl;
@@ -378,16 +404,13 @@ void grade(student students[], int length)
 // adjust a single score for a student for one item {midterm, final, program}
 void adjust_grade(student students[], int length)
 {
-  int id;
   int choice;
   int index;
 
-  cout << "Enter the id number of the student: ";
-  cin >> id;
-  index = find_student(students, length, id);
+  index = find_student(students, length);
   if(index == -1)
   {
-    cout << "No student found with id " << id << endl << endl;
+    cout << "Student not found." << endl;
     return;
   }
   cout << "What grade would you like to adjust: " << endl;
@@ -431,26 +454,30 @@ void class_average(student s[], int length)
   cout << "\tPrograms: " << program_avg << endl;
   cout << "\tMidterm: " << midterm_avg << endl;
   cout << "\tFinal: " << final_avg << endl;
+  wait();
   return;
 }
-void compute_grades(student s[], int length, int grades[])
+
+void compute_grades(student s[], int length)
 {
   // Assuming the final and midterm are 40% of your grade and the program is 20%
   double test_coef = 0.4, program_coef = 0.2, grade;
+
+  cout << "Final grades: " << endl;
   for(int i = 0; i < length; ++i)
   {
     grade = s[i].final_grade * test_coef
           + s[i].midterm_grade * test_coef
           + s[i].program_grade * program_coef;
-    grades[i] = grade;
+    cout << s[i].name << ": " << grade << endl;
   }
-  cout << "Final grades: " << endl;
-  for(int i = 0; i < length; ++i)
-  {
-    cout << s[i].name << ": " << grades[i] << endl;
-  }
+
+  wait();
+  return;
+}
+
+void wait()
+{
   cout << "Press anything to continue" << endl;
   cin.get();
-  
-  return;
 }
