@@ -33,14 +33,18 @@ void grade(student* , int);
 void adjust_grade(student*, int);
 int load(student*, char*);
 void save(student*, int, char*);
+void class_average(student*, int);
+void compute_grades(student*, int, int*);
 
 int main(void) {
-  int num_students = 0;
+
   student students[SIZE];
-  int menu_choice;
-  bool repeat = true;
   char filename[SIZE] = {};
   char choice;
+  int menu_choice;
+  int num_students = 0;
+  int grades[SIZE];
+  bool repeat = true;
   bool success = false;
 
   cout << "Would you like to load an existing gradebook(y/N): ";
@@ -88,7 +92,7 @@ int main(void) {
                   save(students, num_students, filename);
                 break;
         // class average
-        case 3: cout << "This totally isn't implemented yet!" << endl;
+        case 3: class_average(students, num_students);
                 break;
         // adjust individual grade
         case 4: adjust_grade(students, num_students);
@@ -99,7 +103,7 @@ int main(void) {
         case 5: view_students(students, num_students);
                 break;
         // final grades
-        case 6: cout << "This totally isn't implemented yet!" << endl;
+        case 6: compute_grades(students, num_students, grades);
                 break;
         // quit
         case 7: repeat = false;
@@ -201,7 +205,7 @@ void menu_print(void)
 {
   cout << "1. Add a student" << endl;
   cout << "2. Grade an item" << endl;
-  cout << "3. Get class average for an item" << endl;
+  cout << "3. Get class averages" << endl;
   cout << "4. Adjust a students grade" << endl;
   cout << "5. View student information" << endl;
   cout << "6. Compute final grades" << endl;
@@ -309,7 +313,7 @@ void view_students(student students[], int length)
       index = find_student(students, length, id);
       if(index == -1)
       {
-          cout << "Invalid id" << endl;
+          cout << "Student not found." << endl;
       }
       else
       {
@@ -323,6 +327,9 @@ void view_students(student students[], int length)
           student_print(students[i]);
       }
   }
+
+  cout << "Press anything to continue" << endl;
+  cin.get();
   return;
 }
 
@@ -404,5 +411,46 @@ void adjust_grade(student students[], int length)
   }
 
   cout << endl;
+  return;
+}
+
+void class_average(student s[], int length)
+{
+  double final_avg = 0, program_avg = 0, midterm_avg = 0;
+  for(int i = 0; i < length; ++i)
+  {
+    final_avg += s[i].final_grade;
+    midterm_avg += s[i].midterm_grade;
+    program_avg += s[i].program_grade;
+  }
+  final_avg /= length;
+  midterm_avg /= length;
+  program_avg /= length;
+
+  cout << "Class averages for" << endl;
+  cout << "\tPrograms: " << program_avg << endl;
+  cout << "\tMidterm: " << midterm_avg << endl;
+  cout << "\tFinal: " << final_avg << endl;
+  return;
+}
+void compute_grades(student s[], int length, int grades[])
+{
+  // Assuming the final and midterm are 40% of your grade and the program is 20%
+  double test_coef = 0.4, program_coef = 0.2, grade;
+  for(int i = 0; i < length; ++i)
+  {
+    grade = s[i].final_grade * test_coef
+          + s[i].midterm_grade * test_coef
+          + s[i].program_grade * program_coef;
+    grades[i] = grade;
+  }
+  cout << "Final grades: " << endl;
+  for(int i = 0; i < length; ++i)
+  {
+    cout << s[i].name << ": " << grades[i] << endl;
+  }
+  cout << "Press anything to continue" << endl;
+  cin.get();
+  
   return;
 }
