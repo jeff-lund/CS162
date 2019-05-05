@@ -21,7 +21,7 @@ struct student {
 };
 
 // Function Prototypes
-void menu_print(void);
+int menu_print(void);
 void grade_program(student&);
 void grade_midterm(student&);
 void grade_final(student&);
@@ -74,12 +74,9 @@ int main(void) {
     }
   }
 
-
   while(repeat)
   {
-      menu_print();
-      cin >> menu_choice;
-      cin.ignore();
+      menu_choice = menu_print();
       switch (menu_choice)
       {
         // add a student
@@ -202,8 +199,10 @@ void save(student s[], int length, char filename[])
 
 }
 
-void menu_print(void)
+int menu_print(void)
 {
+  int n;
+
   cout << "1. Add a student" << endl;
   cout << "2. Grade an item" << endl;
   cout << "3. Get class averages" << endl;
@@ -212,7 +211,9 @@ void menu_print(void)
   cout << "6. Compute final grades" << endl;
   cout << "7. Quit" << endl;
   cout << "Enter an option: " << endl;
-  return;
+  cin >> n;
+  cin.ignore();
+  return n;
 }
 
 void grade_program(student& s)
