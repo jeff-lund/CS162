@@ -1,0 +1,3 @@
+Spark|German Shepard|3
+Pebbles|Black Lab|7
+Snoopy|Beagle|4
