@@ -50,5 +50,6 @@ int main(void)
             fin.ignore(100, '\t');     //    if there is no more data    
         }
     }
+    fin.close();
     return 0;
 }

@@ -10,6 +10,6 @@ class stack
         int peek();
         bool isEmpty();
     private:
-        char values[100];
+        int values[100];
         int index;
 };
