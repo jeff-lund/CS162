@@ -1,18 +1,6 @@
 #include <iostream>
+#include "pythonic_list.h"
 using namespace std;
-
-class list {
-    public:
-      list();
-      void append(int);
-      int pop();
-      void print();
-    private:
-      int *arr;
-      int last_index;
-      int max_size;
-      void reallocate();
-};
 
 list::list()
 {
@@ -58,20 +46,22 @@ void list::reallocate()
   return;
 }
 
-int main(void)
+int list::get(int i)
 {
-  list l;
-  int x;
-  l.append(5);
-  l.append(6);
-  l.append(10);
-  l.print();
-  x = l.pop();
-  cout << "Value popped: " << x << endl;
-  l.print();
-  for(int i = 10; i < 25; ++i)
-    l.append(i);
-  l.print();
-
+  if(i < last_index)
+    return arr[i];
+  else
+    cout << "List index out of range" << endl;
   return 0;
+}
+
+bool list::store(int index, int value)
+{
+  if(index >= last_index)
+  {
+    cout << "List index out of range" << endl;
+    return false;
+  }
+  arr[index] = value;
+  return true;
 }
