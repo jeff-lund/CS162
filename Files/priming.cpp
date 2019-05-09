@@ -1,3 +1,10 @@
+/*************************************************
+* Demo program to show the need to prime the pump
+* and ensure EOF status
+* Use sample file: dogs.txt
+***************************************************/
+
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -10,6 +17,7 @@ struct dog
     int age;
 };
 
+// Reading file into struct without properly setting EOF flag
 void read_bad(dog my_dogs[])
 {
     char filename[20];
@@ -49,6 +57,7 @@ void read_bad(dog my_dogs[])
     return;
 }
 
+// Reading in a file to a struct with priming
 void read_good(dog my_dogs[])
 {
     char filename[20];
@@ -95,7 +104,6 @@ int main(void)
     dog lots_of_dogs[100];
     read_bad(lots_of_dogs);
     read_good(lots_of_dogs);
-
 
     return 0;
 }

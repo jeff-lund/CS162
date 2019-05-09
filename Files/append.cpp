@@ -1,3 +1,7 @@
+/********************************************
+ * Testing of append option for file opening
+ ***********************************************/
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -9,8 +13,8 @@ int main()
     char cont;
     bool loop = true;
 
-    fout.open("log.txt", ios::app);
-    fout << "*********************New log entry**************************\n";
+    fout.open("log.txt", ios::app); // ios::app opens in append mode, maintains file contents
+    fout << "*********************New log entry**************************\n"; 
 
     while(loop)
     {
