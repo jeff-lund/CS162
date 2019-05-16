@@ -9,8 +9,8 @@ int main(void)
     for(int i = 0; i < 5; ++i)
     {
         cout << "Adding " << arr[i] << " to the list." << endl;
-        my_list.add_b(arr[i]);
-        //my_list.add_e(arr[i]);
+        //my_list.add_b(arr[i]);
+        my_list.add_e(arr[i]);
         //my_list.add_sort(arr[i]);
         my_list.display_all();
     }
