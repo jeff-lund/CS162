@@ -11,25 +11,16 @@ list::list()
 
 list::~list()
 {
-  node *temp = head;
-  if(head == NULL)
+  node *temp;
+  while(head != NULL)
   {
-    return;
+    temp = head->next;
+    delete [] head->a_dog.name;
+    delete [] head->a_dog.breed;
+    delete [] head->a_dog.trick;
+    delete head;
+    head = temp;
   }
-
-  while(head->next != NULL)
-  {
-    head = head->next;
-    delete [] temp->a_dog.name;
-    delete [] temp->a_dog.breed;
-    delete [] temp->a_dog.trick;
-    delete temp;
-    temp = head;
-  }
-  delete [] temp->a_dog.name;
-  delete [] temp->a_dog.breed;
-  delete [] temp->a_dog.trick;
-  delete temp;
 
   return;
 }
