@@ -109,14 +109,19 @@ void list::add_sort(int value)
     {
       current = head;
       // not at the end of the list AND haven't reached the place to insert
+      /*
       while(current != NULL && current->val < value)
       {
         previous = current;
         current = current->next;
       }
-
       temp->next = current;
       previous->next = temp;
+        */
+      while(current->next != NULL && current->next->val < value)
+          current = current->next;
+      temp->next = current->next;
+      current->next = temp;
     }
   }
   return;
