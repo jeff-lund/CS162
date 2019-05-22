@@ -42,15 +42,6 @@ void list::add_b(int value)
     temp->next = head;
     head = temp;
   }
-  /*
-  else
-  {
-    temp = head;
-    head = new node;
-    head->val = value;
-    head->next = temp;
-  }
-  */
   return;
 }
 

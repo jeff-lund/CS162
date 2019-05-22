@@ -114,6 +114,9 @@ void list::remove(const char* search)
     current = head;
     head = head->next;
     // why not just delete head?
+    delete [] current->a_dog.name;
+    delete [] current->a_dog.breed;
+    delete [] current->a_dog.trick;
     delete current; // Make sure to deallocate your nodes
   }
   // removing from middle or end of list
@@ -129,6 +132,9 @@ void list::remove(const char* search)
     if(current != NULL)
     {
       previous->next = current->next;
+      delete [] current->a_dog.name;
+      delete [] current->a_dog.breed;
+      delete [] current->a_dog.trick;
       delete current;
     }
     else

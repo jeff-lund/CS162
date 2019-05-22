@@ -7,7 +7,8 @@ int main(void)
 {
   dog this_dog;
   list my_list;
-
+  int *ptr = NULL;
+  delete ptr;
   this_dog = build_dog("Spark", "Golden Retriever", "Fetch");
   my_list.add(this_dog);
   my_list.display_all();
@@ -24,7 +25,7 @@ int main(void)
   my_list.add(this_dog);
   my_list.display_all();
 
-  this_dog = build_dog("Kilo", "Pit Bull", "Bite");
+  this_dog = build_dog("Kilo", "Pit Bull", "Cuddle");
   my_list.add(this_dog);
   my_list.display_all();
 

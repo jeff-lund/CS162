@@ -17,6 +17,7 @@ class list
         list();
         ~list();
         void add(dog);
+        void append(dog);
         void remove(const char*);
         int count();
         void display_all();
