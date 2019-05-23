@@ -3,6 +3,13 @@
 #include "node.h"
 using namespace std;
 
+node::~node()
+{
+    delete [] a_dog.name;
+    delete [] a_dog.breed;
+    delete [] a_dog.trick;
+}
+
 list::list()
 {
   head = NULL;
@@ -15,9 +22,9 @@ list::~list()
   while(head != NULL)
   {
     temp = head->next;
-    delete [] head->a_dog.name;
-    delete [] head->a_dog.breed;
-    delete [] head->a_dog.trick;
+    //delete [] head->a_dog.name;
+    //delete [] head->a_dog.breed;
+    //delete [] head->a_dog.trick;
     delete head;
     head = temp;
   }
@@ -114,6 +121,9 @@ void list::remove(const char* search)
     current = head;
     head = head->next;
     // why not just delete head?
+    //delete [] current->a_dog.name;
+    //delete [] current->a_dog.breed;
+    //delete [] current->a_dog.trick; 
     delete current; // Make sure to deallocate your nodes
   }
   // removing from middle or end of list
@@ -129,6 +139,9 @@ void list::remove(const char* search)
     if(current != NULL)
     {
       previous->next = current->next;
+      //delete [] current->a_dog.name;
+      //delete [] current->a_dog.breed;
+      //delete [] current->a_dog.trick;
       delete current;
     }
     else
@@ -148,6 +161,33 @@ dog build_dog(const char* name, const char* breed, const char* trick)
   strcpy(new_dog.name, name);
   strcpy(new_dog.breed, breed);
   strcpy(new_dog.trick, trick);
-
+  
   return new_dog;
+}
+
+dog interactive_build_dog()
+{
+    char buffer[500];
+    dog a_dog;
+
+    cout << "What is the dog's name? ";
+    cin.get(buffer, 500, '\n');
+    cin.ignore();
+    a_dog.name = new char[strlen(buffer) + 1];
+    strcpy(a_dog.name, buffer);
+
+	cout << "What breed is the " << a_dog.name << "? ";
+    cin.get(buffer, 500, '\n');
+    cin.ignore();
+    a_dog.breed = new char[strlen(buffer) + 1];
+    strcpy(a_dog.breed, buffer);
+
+	cout << "What trick can " << a_dog.name << " perform? ";
+    cin.get(buffer, 500, '\n');
+    cin.ignore();
+    a_dog.trick = new char[strlen(buffer) + 1];
+    strcpy(a_dog.trick, buffer);
+    
+    cout << endl;
+	return a_dog;
 }

@@ -8,6 +8,7 @@ struct dog
 struct node {
     dog a_dog;
     node *next;
+    ~node();
 };
 
 
@@ -25,3 +26,4 @@ class list
 };
 
 dog build_dog(const char*, const char*, const char*);
+dog interactive_build_dog();
