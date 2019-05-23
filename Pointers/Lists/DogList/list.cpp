@@ -121,15 +121,9 @@ void list::remove(const char* search)
     current = head;
     head = head->next;
     // why not just delete head?
-<<<<<<< HEAD
     //delete [] current->a_dog.name;
     //delete [] current->a_dog.breed;
-    //delete [] current->a_dog.trick; 
-=======
-    delete [] current->a_dog.name;
-    delete [] current->a_dog.breed;
-    delete [] current->a_dog.trick;
->>>>>>> eaf58ccc8c04068cbbcbd8fa2dcc3f35e4b35fb6
+    //delete [] current->a_dog.trick;
     delete current; // Make sure to deallocate your nodes
   }
   // removing from middle or end of list
@@ -145,15 +139,9 @@ void list::remove(const char* search)
     if(current != NULL)
     {
       previous->next = current->next;
-<<<<<<< HEAD
       //delete [] current->a_dog.name;
       //delete [] current->a_dog.breed;
       //delete [] current->a_dog.trick;
-=======
-      delete [] current->a_dog.name;
-      delete [] current->a_dog.breed;
-      delete [] current->a_dog.trick;
->>>>>>> eaf58ccc8c04068cbbcbd8fa2dcc3f35e4b35fb6
       delete current;
     }
     else
@@ -173,7 +161,7 @@ dog build_dog(const char* name, const char* breed, const char* trick)
   strcpy(new_dog.name, name);
   strcpy(new_dog.breed, breed);
   strcpy(new_dog.trick, trick);
-  
+
   return new_dog;
 }
 
@@ -199,7 +187,7 @@ dog interactive_build_dog()
     cin.ignore();
     a_dog.trick = new char[strlen(buffer) + 1];
     strcpy(a_dog.trick, buffer);
-    
+
     cout << endl;
 	return a_dog;
 }

@@ -8,16 +8,15 @@ const bool MANUAL = false;
 int main(void)
 {
   list my_list;
-<<<<<<< HEAD
   if(!MANUAL)
   {
-      
+
     my_list.add(build_dog("Spark", "Golden Retriever", "Fetch"));
     my_list.display_all();
 
     my_list.add(build_dog("Bork", "Poodle", "Yapping"));
     my_list.display_all();
-    
+
     my_list.add(build_dog("Fido", "Beagle", "Play Dead"));
     my_list.display_all();
 
@@ -26,7 +25,7 @@ int main(void)
 
     my_list.add(build_dog("Kilo", "Pit Bull", "Cuddle"));
     my_list.display_all();
-    
+
     my_list.remove("Fido");
     my_list.display_all();
 
@@ -35,7 +34,7 @@ int main(void)
 
     my_list.remove("Spot");
     my_list.display_all();
-    
+
     my_list.~list(); // call destructor
 
     list a_list; // what happens if we use the destructor on an empty list
@@ -45,47 +44,10 @@ int main(void)
   {
     for(int i = 0; i < 5; ++i)
     {
-        my_list.add(interactive_build_dog());  
-        my_list.display_all();  
+        my_list.add(interactive_build_dog());
+        my_list.display_all();
     }
-  } 
-=======
-  int *ptr = NULL;
-  delete ptr;
-  this_dog = build_dog("Spark", "Golden Retriever", "Fetch");
-  my_list.add(this_dog);
-  my_list.display_all();
-
-  this_dog = build_dog("Bork", "Poodle", "Yapping");
-  my_list.add(this_dog);
-  my_list.display_all();
-
-  this_dog = build_dog("Fido", "Beagle", "Play Dead");
-  my_list.add(this_dog);
-  my_list.display_all();
-
-  this_dog = build_dog("Abelsworth", "Black Lab", "Shake");
-  my_list.add(this_dog);
-  my_list.display_all();
-
-  this_dog = build_dog("Kilo", "Pit Bull", "Cuddle");
-  my_list.add(this_dog);
-  my_list.display_all();
-
-  my_list.remove("Fido");
-  my_list.display_all();
-
-  my_list.remove("Abelsworth");
-  my_list.display_all();
-
-  my_list.remove("Spot");
-  my_list.display_all();
-
-  my_list.~list(); // call destructor
-
-  list a_list; // what happens if we use the destructor on an empty list
-  a_list.~list();
->>>>>>> eaf58ccc8c04068cbbcbd8fa2dcc3f35e4b35fb6
+  }
 
   return 0;
 }
