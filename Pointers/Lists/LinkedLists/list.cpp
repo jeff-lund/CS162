@@ -17,7 +17,6 @@ void list::display_all(void)
   }
   while(current)
   {
-    //display(current->d);
     cout << current->val << " ";
     current = current->next;
   }
@@ -42,15 +41,6 @@ void list::add_b(int value)
     temp->next = head;
     head = temp;
   }
-  /*
-  else
-  {
-    temp = head;
-    head = new node;
-    head->val = value;
-    head->next = temp;
-  }
-  */
   return;
 }
 
