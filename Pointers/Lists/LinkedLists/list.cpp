@@ -17,7 +17,6 @@ void list::display_all(void)
   }
   while(current)
   {
-    //display(current->d);
     cout << current->val << " ";
     current = current->next;
   }
